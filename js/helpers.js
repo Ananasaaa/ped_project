@@ -28,3 +28,6 @@ export const createPhoto = (id) => {
 export const generatePhotos = () => {
     return new Array(25).fill(null).map((_, index) => createPhoto(index + 1));
 };
+
+//task 3
+

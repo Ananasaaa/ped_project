@@ -14,3 +14,5 @@ export function renderPhotos(photos) {
     });
     return fragment;
 }
+
+
