@@ -10,3 +10,11 @@ export const commentsText = [
 ];
 
 export const names = ['John', 'Alex', 'Mary', 'Jake', 'Bill', 'Kate', 'Mike', 'Lola', 'George', 'Andy', 'Jessica'];
+
+export const descriptions = [
+    "Testing the new camera! =)",
+    "Vacation at the beach.",
+    "A beautiful evening in the city.",
+    "Traveling in the mountains.",
+    "Breakfast with friends."
+]
