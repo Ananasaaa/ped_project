@@ -11,7 +11,7 @@ const createComment = () => {
 };
 
 const generateComments = () => {
-    const commentsCount = getRandomNumber(1, 3);
+    const commentsCount = getRandomNumber(0, 15);
     return new Array(commentsCount).fill(null).map(createComment);
 };
 
