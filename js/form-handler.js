@@ -1,3 +1,4 @@
+import { max_comment_length, max_hashtag_length, max_hashtags } from "./constants.js";
 const uploadFileInput = document.querySelector('#upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.body;
@@ -17,6 +18,8 @@ const closeUploadForm = () => {
   body.classList.remove('modal-open');
   uploadFileInput.value = '';  // сбрасываем значение поля файла
   document.querySelector('#upload-select-image').reset();  // сброс формы
+  hashtagsInput.value = ''; // сброс значения хештегов
+  commentInput.value = ''; // сброс значения комментария
 };
 
 // закрытие по крестику
@@ -48,7 +51,7 @@ function validateHashtags() {
   const hashtags = hashtagString.toLowerCase().split(/\s+/); // разделяем по пробелам хэштеги
   const hashtagRegex = /^#[a-zA-Z0-9]{1,19}$/; // регулярка для проверки хештегов
 
-  if (hashtags.length > 5) {
+  if (hashtags.length > max_hashtags) {
     hashtagsInput.setCustomValidity('You can\'t enter more than 5 hashtags');
     hashtagsInput.reportValidity(); // немедленно отображаем ошибку
     return;
@@ -63,21 +66,24 @@ function validateHashtags() {
   }
 
   // проверка каждого хештега на соответствие правилам
-  for (let tag of hashtags) {
+  const errors = hashtags.reduce((acc, tag) => {
     if (tag[0] !== '#') {
-      hashtagsInput.setCustomValidity('The hashtag must start with #.');
-      hashtagsInput.reportValidity();
-      return;
+      acc.push('The hashtag must start with #.');
+    } else if (tag.length > max_hashtag_length) {
+      acc.push(`The hashtag cannot be longer than ${max_hashtag_length} characters.`);
+    } else if (tag.length === 1 && tag === '#') {
+        acc.push('The hashtag cannot consist only of #');
+    } else if (!hashtagRegex.test(tag)) {
+      acc.push('The hashtag must contain only letters and numbers and cannot be longer than 20 characters');
     }
-    if (tag.length === 1) {
-      hashtagsInput.setCustomValidity('The hashtag cannot consist only of #');
-      hashtagsInput.reportValidity();
-      return;
-    }
-    if (!hashtagRegex.test(tag)) {
-      hashtagsInput.setCustomValidity('The hashtag must contain only letters and numbers and cannot be longer than 20 characters');
-      return;
-    }
+    return acc;
+  }, []);
+
+  // если есть ошибки, отображаем первую ошибку
+  if (errors.length > 0) {
+    hashtagsInput.setCustomValidity(errors[0]);
+    hashtagsInput.reportValidity();
+    return;
   }
  
   hashtagsInput.setCustomValidity(''); //сброс ошибки валидации если хэшт корректные
@@ -91,7 +97,7 @@ hashtagsInput.addEventListener('input', validateHashtags); //при каждом
 // фция для валидации коммента
 function validateComment() {
   const commentText = commentInput.value.trim();
-  if (commentText.length > 140) {
+  if (commentText.length > max_comment_length) {
     commentInput.setCustomValidity('The comment must not contain more than 140 characters');
   } else {
     commentInput.setCustomValidity('');
@@ -127,4 +133,3 @@ form.addEventListener('submit', function(event) {
     form.reportValidity(); // ошибки
   }
 }); 
-
