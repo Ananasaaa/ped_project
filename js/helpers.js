@@ -11,7 +11,7 @@ const createComment = () => {
 };
 
 const generateComments = () => {
-    const commentsCount = getRandomNumber(0, 15);
+    const commentsCount = getRandomNumber(0, 100);
     return new Array(commentsCount).fill(null).map(createComment);
 };
 
@@ -24,11 +24,10 @@ export const createPhoto = (id) => {
         likes: getRandomNumber(15, 200),
         comments: generateComments()
     };
-};
+}; 
 
 export const generatePhotos = () => {
     return new Array(25).fill(null).map((_, index) => createPhoto(index + 1));
 };
-
 
 

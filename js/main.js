@@ -3,7 +3,7 @@ import { renderPhotos } from './function.js';
 import { openModal } from './modal.js'; 
 
 
-const photosArray = generatePhotos();
+export const photosArray = generatePhotos();
 
 const pictures = document.querySelector('.pictures');
 
