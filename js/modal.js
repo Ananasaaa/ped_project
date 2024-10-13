@@ -57,15 +57,3 @@ export function openModal(photo) {
     document.addEventListener('keydown', onEscPress);
     bigPicture.querySelector('.big-picture__cancel').addEventListener('click', closeModal);
     }
-    
-    function closeModal() {
-        const bigPicture = document.querySelector('.big-picture');
-        bigPicture.classList.add('hidden');
-        document.removeEventListener('keydown', onEscPress);
-    }
-    
-    function onEscPress(evt) {
-        if (evt.key === 'Escape') {
-            closeModal();
-        }
-    }
