@@ -2,12 +2,27 @@ import { max_comment_length, max_hashtag_length, max_hashtags } from "./constant
 const uploadFileInput = document.querySelector('#upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.body;
+const previewImage = document.querySelector('.img-upload__preview img'); // получаем элемент превью изображения
 
-// oбработчик выбора файла
+
+uploadFileInput.addEventListener('change', (evt) => {
+  const file = evt.target.files[0]; // получаем файл
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      previewImage.src = e.target.result; // устанавливаем загруженное изображение в превью
+    };
+    reader.readAsDataURL(file); // читаем файл как Data URL
+  }
+
+  uploadOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+});
+/*// oбработчик выбора файла
 uploadFileInput.addEventListener('change', () => {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
-}); 
+});  */
 
 
 
