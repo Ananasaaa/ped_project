@@ -3,8 +3,9 @@ export function makePhoto(photo) {
     pictureTemplate.querySelector('img').src = photo.url;
     pictureTemplate.querySelector('.picture__comments').innerText = photo.comments.length;
     pictureTemplate.querySelector('.picture__likes').innerText = photo.likes;
+    pictureTemplate.querySelector('.picture').dataset.id = photo.id; //связываем picture по id 
     return pictureTemplate;
-}
+} 
 
 export function renderPhotos(photos) {
     const fragment = document.createDocumentFragment();
@@ -14,3 +15,5 @@ export function renderPhotos(photos) {
     });
     return fragment;
 }
+
+

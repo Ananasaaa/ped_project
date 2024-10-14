@@ -1,4 +1,4 @@
-import { commentsText, names } from './constants.js';
+import { commentsText, names, descriptions } from './constants.js';
 import { getRandomNumber } from './utils.js'
 
 const createComment = () => {
@@ -11,15 +11,16 @@ const createComment = () => {
 };
 
 const generateComments = () => {
-    const commentsCount = getRandomNumber(1, 3);
+    const commentsCount = getRandomNumber(0, 15);
     return new Array(commentsCount).fill(null).map(createComment);
 };
 
 export const createPhoto = (id) => {
+    const randomDescription = descriptions[getRandomNumber(0, descriptions.length - 1)];
     return {
         id: id,
         url: `photos/${id}.jpg`,
-        description: `Photo description ${id}`,
+        description: randomDescription,
         likes: getRandomNumber(15, 200),
         comments: generateComments()
     };
@@ -28,3 +29,6 @@ export const createPhoto = (id) => {
 export const generatePhotos = () => {
     return new Array(25).fill(null).map((_, index) => createPhoto(index + 1));
 };
+
+
+
