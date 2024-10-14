@@ -18,3 +18,7 @@ export const descriptions = [
     "Traveling in the mountains.",
     "Breakfast with friends."
 ]
+
+export const max_hashtags = 5;
+export const max_comment_length = 140;
+export const max_hashtag_length = 20;
